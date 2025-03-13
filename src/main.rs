@@ -35,7 +35,8 @@ fn main() {
             2 => view_task(&todos),
             3 => mark_complet(&mut todos),
             4 => delete_task(&mut todos),
-            5 => {
+            5 => edit_task(&mut todos),
+            6 => {
                 println!("Exiting");
                 break;
             }
@@ -115,4 +116,30 @@ fn delete_task(todos: &mut Vec<TodoItem>) {
     } else {
         println!("Task not found!");
     }
+}
+
+fn edit_task(todos: &mut Vec<TodoItem>) {
+    println!("Enter the id of task which you want to edit!!");
+
+    let mut input: String = String::new();
+    io::stdin().read_line(&mut input).expect("Failed to read input");
+
+    let id: u32 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input");
+            return;
+        }
+    };
+
+    if let Some(todo) = todos.iter_mut().find(|todo| todo.id == id) {
+        println!("Enter the new task:");
+        let mut task: String = String::new();
+        io::stdin().read_line(&mut task).expect("Failed to read task");
+        todo.task = task.trim().to_string();
+    } else {
+        println!("Task with ID {} not found.", id);
+    }
+
+    println!("Task edited");
 }
