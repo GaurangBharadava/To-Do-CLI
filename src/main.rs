@@ -11,12 +11,12 @@ fn main() {
 
     loop {
         println!("\n--- To-Do List ---");
-        println!("\n--- To-Do List ---");
         println!("1. Add Task");
         println!("2. View Tasks");
         println!("3. Mark Task as Complete");
         println!("4. Delete Task");
-        println!("5. Exit");
+        println!("5. Edit Task");
+        println!("6. Exit");
         println!("Enter your choice: ");
 
         let mut input: String = String::new();
