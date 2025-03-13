@@ -128,7 +128,8 @@ fn mark_complet(todos: &mut Vec<TodoItem>) {
             return;
         }
         todo.completed = true;
-        println!("Task marked as complete!");
+        // println!("Task marked as complete!");
+        // delete_idtask(id, todos); 
     } else {
         println!("Task not found");
     }
@@ -178,9 +179,27 @@ fn delete_task(todos: &mut Vec<TodoItem>) {
         }
     };
 
-    if let Some(pos) = todos.iter_mut().position(|todo| todo.id == id) {
+    if let Some(pos) = todos.iter().position(|todo| todo.id == id) {
         todos.remove(pos);
         println!("Task deleted successfully!");
+
+        for (index, todo) in todos.iter_mut().enumerate() {
+            todo.id = index as u32 + 1;
+        }
+    } else {
+        println!("Task not found!");
+    }
+}
+
+fn delete_idtask(id: u32, todos: &mut Vec<TodoItem>) {
+    if let Some(pos) = todos.iter().position(|todo| todo.id == id) {
+        todos.remove(pos);
+        println!("Task deleted successfully!");
+
+        for (index, todo) in todos.iter_mut().enumerate() {
+            todo.id = index as u32 + 1;
+        }
+
     } else {
         println!("Task not found!");
     }
